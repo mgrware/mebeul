@@ -6,42 +6,83 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Http\Requests\CreateProductRequest;
+
 use App\Product;
+
+use App\Image;
+
+use Carbon\Carbon;
+
+use Yajra\Datatables\Datatables;
 
 class ProductController extends Controller
 {
-  public function index()
+  
+    public function __construct()
     {
-        return view('product.index');
+        $this->middleware('auth');
+    }
+    public function index()
+    {
+        $products = Product::paginate(5);;
+        return view('product.index', ['products' => $products]);
     }
 
-     public function store(Request $request)
+    public function create()
     {
-        // Validate the request...
-      $product = new Product();
-        $this->validate($request, [
-            'title' => 'required',
-            'image' => 'required',
-            'description' => 'required',
-            'catagories' => 'required'
-        ]);
-        $product->title = $request->title;
-        $product->image = $request->image;
-        $product->catagories = $request->catagories;
-        $product->description = $request->description;
-        printf($request->image);
-    if($request->hasFile('image')) {
-            $file = Input::file('image');
-            //getting timestamp
-            $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-            
-            $name = $timestamp. '-' .$file->getClientOriginalName();
-            
-            $product->filepath = $name;
+        $products = Product::paginate(5);;
+        return view('product.create');
+    }
 
+    public function store(CreateProductRequest $request)
+    {
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        $product = Product::create($input);
+        $product_id = $product->id;
+        $files = $request->images; 
+            // Making counting of uploaded images
+        $file_count = count($files);
+            // start count how many uploaded
+        $uploadcount = 0;
+        foreach($files as $file) {
+            $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+            $name = $timestamp. '-' .$file->getClientOriginalName();
             $file->move(public_path().'/images/', $name);
-        }
+            $image_params= ['name' => $name, 'filepath' => url('/images/'. $name), 'product_id' => $product_id];
+            $image = Image::create($image_params);
+            $uploadcount ++;
+            } 
+            //getting timestamp
+        $products = Product::all();
+        return view('product.index',['products' => $products]);
+    }
+
+    public function anyData()
+    {
+        return Datatables::of(Product::query())->make(true);
+    }
+
+    public function view($id)
+    {
+        $product = Product::find($id);
+        return view('product.view', compact('product'));
+    }
+
+    public function disable_product($id)
+    {
+        $product = Product::find($id);
+        $product->is_active = false;
         $product->save();
-        return view('product.index');
-    }    //
+        return back();
+    }
+
+    public function enable_product($id)
+    {
+        $product = Product::find($id);
+        $product->is_active = true;
+        $product->save();
+        return back();
+    }
 }

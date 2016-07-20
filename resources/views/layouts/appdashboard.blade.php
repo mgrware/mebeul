@@ -25,6 +25,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/dataTables.bootstrap.css">
+    
 
 </head>
 <body id="app-layout">
@@ -97,13 +99,12 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a class="menu-top-active" href="index.html">Dashboard</a></li>
                             @if (Auth::guest())
                                 <li><a href="{{ url('/login') }}">Login</a></li>
                             @else
-                                <li><a href="ui.html">UI Elements</a></li>
-                                <li><a href="table.html">Data Tables</a></li>
-                                <li><a href="forms.html">Forms</a></li>
+                                <li><a {{{ (Request::is('admin') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/') }}">Dashboard</a></li>
+                                <li><a {{{ (Request::is('admin/product') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/product') }}">Product</a></li>
+                                <li><a {{{ (Request::is('admin/master') ? 'class=menu-top-active' : '') }}} href="{{url('/admin/master')}}">Master</a></li>
                                 <li><a href="#">{{ Auth::user()->name }}</a></li>
                                 <li><a href="{{ url('/register') }}">Register</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
@@ -134,5 +135,8 @@
     <script src="/dashboard/assets/js/jquery-1.11.1.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="/dashboard/assets/js/bootstrap.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    @stack('scripts')
 </body>
 </html>

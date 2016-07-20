@@ -59,7 +59,7 @@
                                 <li><a href="table.html">Data Tables</a></li>
                                 <li><a href="forms.html">Forms</a></li>
                                 <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                <li><a href="{{ url('/home/dashboard') }}">Dashboard</a></li>
+                                <li><a href="{{ url('/admin/') }}">Dashboard</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             @endif
                                 

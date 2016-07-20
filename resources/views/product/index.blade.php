@@ -12,36 +12,13 @@
                   <!--   Kitchen Sink -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href="javascript:void(0)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#create-product"> <i class="fa fa-plus"></i> Create Product</a>
+                            <div class="form-group">
+                                <a href="{{url('admin/product/create')}}" class="btn btn-info"> <i class="fa fa-plus"></i> Create New Product</a>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Images</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Catagories</th>
-                                            <th colspan="2">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><img src="{{ URL::to('/') }}/assets/images/img_large_1.jpg" style="width:110px;height:110px;" alt="image"></td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>Otto</td>
-                                            <td>
-                                                <i class="fa fa-trash fa-lg">delete</i>
-                                            </td>
-                                            <td>
-                                                <i class="fa fa-pencil fa-lg">Edit</i>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                <table id="product-table" class="table table-striped table-bordered table-hover">
                                 </table>
                             </div>
                         </div>
@@ -51,7 +28,71 @@
             </div>
     </div>
 </div>
-
-@include('product.modal')
 @endsection
 
+@push('scripts')
+<script>
+$(function() {
+    var colAction = {
+        "title": "Action",
+        "data": "id",
+        "width": "15%",
+        "render": function (data, type, row, meta) {
+            if(row.is_active== 1){
+                string_url = 'disable'
+                text_url = 'Disable'
+            }else{
+                string_url = 'enable'
+                text_url = 'Enable'
+            }
+            var link ='<a href="product/view/' + data + '"> View </a> || <a href="product/edit/' + data + '"> Edit </a> || <a class="is_active" href="/admin/product/'+ string_url+ '/' + data + '">'+text_url+'  </a>';
+
+
+            return link
+        }
+    }
+    var colDesc= {
+        "title": "Description",
+        "data": "description",
+        "width": "40%",
+        "render": function (data, type, row, meta) {
+            if(data.length > 250){
+            var data = jQuery.trim(data).substring(0, 250)
+            .split(" ").slice(0, -1).join(" ") + "...";    
+            }
+            return data   
+        }
+    }
+
+    var colIsActive= {
+        "title": "Status",
+        "data": "is_active",
+        "width": "10%",
+        "render": function (data, type, row, meta) {
+            if(data==1){
+                data = 'Active'
+            }else if(data==0){
+                data = 'Not Active'
+            }
+            return data   
+        }
+    }
+
+
+    $('#product-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('datatables.data') !!}',
+        columns: [
+            {title: 'No',  data: 'id', name: 'id', width: "5%" },
+            {title: 'title', data: 'title', name: 'title', width: "15%"},
+            colDesc,
+            {title: 'Category', data: 'category_id', name: 'category_id', width: "15%" },
+            colIsActive,
+            colAction,
+
+        ]
+    });
+});
+</script>
+@endpush
