@@ -37,18 +37,18 @@
                     @endif
                   </div>
               </div>
-              <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+              <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
                 <label for="name" class="col-md-1 control-label">Category</label>
                   <div class="col-md-4">
-                  {!! Form::select('category_id', array('' => 'Pilih', '1' => 'Funiture', '2' => 'Building', '3' => 'Accesories'), '', ['class' => 'form-control']) !!}
-                    @if ($errors->has('description'))
+                  {!! Form::select('category_id', $categories ,null, array('class' => 'form-control'))!!}
+                    @if ($errors->has('category_id'))
                       <span class="help-block">
-                        <strong>{{ $errors->first('description') }}</strong>
+                        <strong>{{ $errors->first('category_id') }}</strong>
                       </span>
                     @endif
                   </div>
               </div>
-              <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+              <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label for="name" class="col-md-1 control-label">Images</label>
                 <div class="col-md-4">
                    {!! Form::file('images[]', array('multiple'=>true)) !!}
@@ -62,7 +62,7 @@
               <div class="form-group">
                 <label for="name" class="col-md-1 control-label"></label>
                 <div class="col-md-4">
-                  {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
+                  {!! Form::submit('Create', array('class'=>'btn btn-primary')) !!}
                 </div>
               </div>
                 

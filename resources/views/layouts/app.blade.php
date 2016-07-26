@@ -14,7 +14,9 @@
     <!-- Styles -->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
    
-    <!-- Animate.css -->
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    
     <!-- Animate.css -->
     <link rel="stylesheet" href="/assets/css/animate.css">
     <!-- Icomoon Icon Fonts-->
@@ -24,10 +26,10 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
-
+    <!-- Theme style  -->
     <link rel="stylesheet" href="/assets/css/style.css">
 
-
+    <link rel="stylesheet" href="/assets/prettyphoto/css/prettyPhoto.css">
     <!-- Modernizr JS -->
     <script src="/assets/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
@@ -36,59 +38,36 @@
     <![endif]-->
 </head>
 <body id="app-layout">
-    <div class="box-wrap">
-    <header role="banner" id="fh5co-header">
-            <div class="container">
-                <nav class="navbar navbar-default">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="fh5co-navbar-brand">
-                                <a class="fh5co-logo" href="index.html">Narrow</a>
-                            </div>
-                        </div>
-                        <div class="col-md-9 main-nav">
-                            <ul class="nav text-right">
-                            @if (Auth::guest())
-                                <li class="active"><a href="index.html"><span>Home</span></a></li>
-                                <li><a href="services.html">Services</a></li>
-                                <li><a href="product.html">Products</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            @else
-                                <li><a href="ui.html">UI Elements</a></li>
-                                <li><a href="table.html">Data Tables</a></li>
-                                <li><a href="forms.html">Forms</a></li>
-                                <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                <li><a href="{{ url('/admin/') }}">Dashboard</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            @endif
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-          </div>
-        </header>
-        <!-- END: header -->
-       @yield('content')
+    <div id="fh5co-page">
+        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+        <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
 
-       <footer>
-            <div id="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 text-center">
-                            <p>Copyright 2016 Free Html5 <a href="#">Narrow</a>. All Rights Reserved. <br>Made with <i class="icon-heart3 love"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
-                            <p class="fh5co-social-icons">
-                                <a href="#"><i class="icon-twitter-with-circle"></i></a>
-                                <a href="#"><i class="icon-facebook-with-circle"></i></a>
-                                <a href="#"><i class="icon-instagram-with-circle"></i></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <h1 id="fh5co-logo"><a href="index.html"><img src="/assets/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a>Brand</h1>
+            <nav id="fh5co-main-menu" role="navigation">
+                <ul>
+                    <li class="fh5co-active"><a href="/">Home</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="fh5co-footer">
+                <p><small></small></p>
+                <ul>
+                    <li><a href="#"><i class="icon-facebook"></i></a></li>
+                    <li><a href="#"><i class="icon-twitter"></i></a></li>
+                    <li><a href="http://www.instagram.com/mgramadan"><i class="icon-instagram"></i></a></li>
+                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                </ul>
             </div>
-        </footer>
-    </div>
+
+        </aside>
+        <!-- END: header -->
+
+    <div id="fh5co-main">
+         @yield('content')
+    </div>      
    <!-- jQuery -->
     <script src="/assets/js/jquery.min.js"></script>
     <!-- jQuery Easing -->
@@ -96,13 +75,19 @@
     <!-- Bootstrap -->
     <script src="/assets/js/bootstrap.min.js"></script>
     <!-- Owl carousel -->
-        <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <!-- Stellar -->
+    <script src="/assets/js/jquery.stellar.min.js"></script>
     <!-- Waypoints -->
     <script src="/assets/js/jquery.waypoints.min.js"></script>
-    <!-- Parallax Stellar -->
-    <script src="/assets/js/jquery.stellar.min.js"></script>
+    <!-- Counters -->
+    <script src="/assets/js/jquery.countTo.js"></script>
 
-    <!-- Main JS (Do not remove) -->
+    <script src="/assets/prettyphoto/js/jquery.prettyPhoto.js"></script>
+    
+    
+    <!-- MAIN JS -->
     <script src="/assets/js/main.js"></script>
+    @stack('scripts')
 </body>
 </html>

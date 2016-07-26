@@ -11,15 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/product/{id}', 'HomeController@product');
 
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-// Route::resource('dashboard', 'DashboardController', ['only' => ['index']]);
-// Route::resource('product', 'ProductController');
+
 Route::group(['prefix' => 'admin'], function (){
     /* product route */
     Route::resource('product', 'ProductController', ['only' => ['index', 'store', 'create']]);
@@ -37,5 +35,21 @@ Route::group(['prefix' => 'admin'], function (){
     Route::resource('master', 'MasterController', ['only' => ['index', 'store', 'create']]);
     Route::controller('master', 'MasterController', [
     'get_data_user'  => 'test.data'
+    ]);
+
+    /* user route */
+
+    Route::resource('user', 'UserController', ['only' => ['index', 'create']]);
+    Route::get('/user/new', 'UserController@new');
+    Route::controller('user', 'UserController', [
+    'getDataUser'  => 'user.data'
+    ]);
+
+    /* category route */
+
+    Route::resource('category', 'CategoryController', ['only' => ['index', 'create', 'store']]);
+
+    Route::controller('category', 'CategoryController', [
+    'getDataCategory'  => 'catagories.data'
     ]);
 });

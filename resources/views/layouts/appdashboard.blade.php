@@ -105,6 +105,7 @@
                                 <li><a {{{ (Request::is('admin') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/') }}">Dashboard</a></li>
                                 <li><a {{{ (Request::is('admin/product') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/product') }}">Product</a></li>
                                 <li><a {{{ (Request::is('admin/master') ? 'class=menu-top-active' : '') }}} href="{{url('/admin/master')}}">Master</a></li>
+                                <li><a {{{ (Request::is('admin/user') ? 'class=menu-top-active' : '') }}} href="{{url('/admin/user')}}">Users</a></li>
                                 <li><a href="#">{{ Auth::user()->name }}</a></li>
                                 <li><a href="{{ url('/register') }}">Register</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
@@ -137,6 +138,7 @@
     <script src="/dashboard/assets/js/bootstrap.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="/dashboard/assets/js/dropzone.js"></script>
     @stack('scripts')
 </body>
 </html>

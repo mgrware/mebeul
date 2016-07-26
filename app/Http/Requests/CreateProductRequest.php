@@ -26,7 +26,7 @@ class CreateProductRequest extends Request
         return [
             'title' => 'required',
             'description' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
         ];
     }
 }

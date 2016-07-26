@@ -78,6 +78,18 @@ $(function() {
         }
     }
 
+    var colCategories= {
+        "title": "Status",
+        "data": "category.name",
+        "name": "category.name",
+        "width": "10%",
+        "render": function (data, type, row, meta) {
+            console.log(row)
+            return data   
+        }
+    }
+
+
 
     $('#product-table').DataTable({
         processing: true,
@@ -87,7 +99,7 @@ $(function() {
             {title: 'No',  data: 'id', name: 'id', width: "5%" },
             {title: 'title', data: 'title', name: 'title', width: "15%"},
             colDesc,
-            {title: 'Category', data: 'category_id', name: 'category_id', width: "15%" },
+            colCategories,
             colIsActive,
             colAction,
 

@@ -10,6 +10,8 @@ use App\Http\Requests\CreateProductRequest;
 
 use App\Product;
 
+use App\Category;
+
 use App\Image;
 
 use Carbon\Carbon;
@@ -31,13 +33,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        $products = Product::paginate(5);;
-        return view('product.create');
+        $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
+        return view('product.create', compact('categories'));
     }
 
     public function store(CreateProductRequest $request)
     {
         $input = $request->all();
+
         $input['user_id'] = auth()->user()->id;
         $product = Product::create($input);
         $product_id = $product->id;
@@ -61,7 +64,7 @@ class ProductController extends Controller
 
     public function anyData()
     {
-        return Datatables::of(Product::query())->make(true);
+        return Datatables::of(Product::with('category'))->make(true);
     }
 
     public function view($id)
