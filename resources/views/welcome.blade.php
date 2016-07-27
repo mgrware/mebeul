@@ -1,18 +1,15 @@
 @extends('layouts.app')
-
 @section('content')
-            
 <div class="fh5co-narrow-content">
-    <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">We Love To Design 
-        <span>See Our Project</span>
-    </h3>
+    <h4 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Our Project
+    </h4>
     <div class="row animate-box" data-animate-effect="fadeInLeft">
                     @foreach($products as $product)
                     
         <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
-            <a href="{{url('product/'.$product->id)}}">
-                <img src="{!!$product->images->first()->filepath!!}" alt="{!!$product->title!!}" style="width:280px; height:190px;" class="img-responsive">
-                    <h3 class="fh5co-work-title">{!!ucwords($product->title)!!}</h3>
+            <a href="{{url('product/view/'.$product->id)}}">
+                <img src="{!!$product->images->first()->filepath!!}" alt="{!!$product->title!!}" class="img-responsive">
+                    <h4 class="fh5co-work-title">{!!ucwords($product->title)!!}</h4>
                     <p>{!!$product->category->name!!}</p>
                 </a>
             </div>
@@ -21,7 +18,10 @@
                 
         </div>
     </div>
+
+
     <div class="fh5co-narrow-content">
+        <div class="border-bottom"></div>
         <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Client Testimoni</h3>
         <div class="fh5co-testimonial" >
             <div class="fh5co-narrow-content">
@@ -55,6 +55,7 @@
                     </div>
                 </div>
                 <div class="fh5co-narrow-content">
+                    <div class="border-bottom"></div>
                     <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">This Is What 
                         <span>We Love To Do</span>
                     </h3>
@@ -125,6 +126,7 @@
                 </div>
                 <div class="fh5co-cards">
                     <div class="fh5co-narrow-content">
+                        <div class="border-bottom"></div>
                         <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Press Release</h3>
                         <div class="fh5co-flex-wrap">
                             <div class="fh5co-card animate-box" data-animate-effect="fadeInLeft">
@@ -145,6 +147,7 @@
                     </div>
                 </div>
                 <div class="fh5co-narrow-content">
+                    <div class="border-bottom"></div>
                     <div class="row">
                         <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
                             <h1 class="fh5co-heading-colored">We Design Beautiful &amp; Functional Website</h1>

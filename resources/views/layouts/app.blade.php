@@ -38,33 +38,30 @@
     <![endif]-->
 </head>
 <body id="app-layout">
-    <div id="fh5co-page">
-        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-        <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
-
-            <h1 id="fh5co-logo"><a href="index.html"><img src="/assets/images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a>Brand</h1>
-            <nav id="fh5co-main-menu" role="navigation">
-                <ul>
-                    <li class="fh5co-active"><a href="/">Home</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+    <div class="container">
+        <header id="fh5co-header" role="banner" class="border">
+            <nav class="navbar" id="fh5co-main-menu" role="navigation">
+                <div id="navbar" class="navbar navbar-fixed-top">
+                    <div id="header-container" class="container navbar-container">
+                        <ul class="nav navbar-nav">
+                            <li class="brand-label">
+                                <img src="/assets/images/logo.png">
+                            </li>
+                            <li class="brand-label">
+                                <a id="brand" class="navbar-brand" href="#">Rachipta Lestari</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="fh5co-active"><a href="/">Home</a></li>
+                            <li><a href="portfolio.html">Portfolio</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
-
-            <div class="fh5co-footer">
-                <p><small></small></p>
-                <ul>
-                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li><a href="http://www.instagram.com/mgramadan"><i class="icon-instagram"></i></a></li>
-                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                </ul>
-            </div>
-
-        </aside>
-        <!-- END: header -->
-
+        </header>
+    </div>
     <div id="fh5co-main">
          @yield('content')
     </div>      
@@ -88,6 +85,82 @@
     
     <!-- MAIN JS -->
     <script src="/assets/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var myNavBar = {
+
+    flagAdd: true,
+
+    elements: [],
+
+    init: function (elements) {
+        this.elements = elements;
+    },
+
+    add : function() {
+        if(this.flagAdd) {
+            for(var i=0; i < this.elements.length; i++) {
+                document.getElementById(this.elements[i]).className += " fixed-theme";
+            }
+            this.flagAdd = false;
+        }
+    },
+
+    remove: function() {
+        for(var i=0; i < this.elements.length; i++) {
+            document.getElementById(this.elements[i]).className =
+                    document.getElementById(this.elements[i]).className.replace( /(?:^|\s)fixed-theme(?!\S)/g , '' );
+        }
+        this.flagAdd = true;
+    }
+
+};
+
+/**
+ * Init the object. Pass the object the array of elements
+ * that we want to change when the scroll goes down
+ */
+myNavBar.init(  [
+    "fh5co-main-menu",
+    "header-container",
+    "brand"
+]);
+
+/**
+ * Function that manage the direction
+ * of the scroll
+ */
+function offSetManager(){
+
+    var yOffset = 0;
+    var currYOffSet = window.pageYOffset;
+
+    if(yOffset < currYOffSet) {
+        myNavBar.add();
+    }
+    else if(currYOffSet == yOffset){
+        myNavBar.remove();
+    }
+
+}
+
+/**
+ * bind to the document scroll detection
+ */
+window.onscroll = function(e) {
+    offSetManager();
+}
+
+/**
+ * We have to do a first detectation of offset because the page
+ * could be load with scroll down set.
+ */
+offSetManager();
+  $('#myCarousel').carousel({
+        pause: 'none'
+    })
+});
+    </script>
     @stack('scripts')
 </body>
 </html>
