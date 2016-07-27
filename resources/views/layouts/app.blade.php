@@ -38,14 +38,26 @@
     <![endif]-->
 </head>
 <body id="app-layout">
-    <div class="container">
-        <header id="fh5co-header" role="banner" class="border">
+<div class="site-wrapper">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+      <div class="masthead clearfix">
+        <div class="inner">
+        </div>
+      </div>
+      <div class="inner cover">
+        
+      </div>
+    </div>
+</div>
+</div>
+<header id="fh5co-header" role="banner" class="border">
             <nav class="navbar" id="fh5co-main-menu" role="navigation">
                 <div id="navbar" class="navbar navbar-fixed-top">
                     <div id="header-container" class="container navbar-container">
                         <ul class="nav navbar-nav">
                             <li class="brand-label">
-                                <img src="/assets/images/logo.png">
+                                <img src="/assets/images/logo-rhcp.png">
                             </li>
                             <li class="brand-label">
                                 <a id="brand" class="navbar-brand" href="#">Rachipta Lestari</a>
@@ -53,6 +65,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="fh5co-active"><a href="/">Home</a></li>
+                            <li><a href="portfolio.html">Products</a></li>
                             <li><a href="portfolio.html">Portfolio</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact</a></li>
@@ -61,7 +74,7 @@
                 </div>
             </nav>
         </header>
-    </div>
+
     <div id="fh5co-main">
          @yield('content')
     </div>      

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div class="bg-gray">
 <div class="fh5co-narrow-content">
     <h4 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Our Project
     </h4>
@@ -18,9 +19,8 @@
                 
         </div>
     </div>
-
-
-    <div class="fh5co-narrow-content">
+</div>
+    <div class="fh5co-narrow-content ">
         <div class="border-bottom"></div>
         <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Client Testimoni</h3>
         <div class="fh5co-testimonial" >
@@ -54,6 +54,7 @@
                         </div>
                     </div>
                 </div>
+            <div class="bg-gray">
                 <div class="fh5co-narrow-content">
                     <div class="border-bottom"></div>
                     <h3 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">This Is What 
@@ -105,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="fh5co-counters" style="background-image: url(assets/images/hero.jpg);" data-stellar-background-ratio="0.5" id="counter-animate">
                     <div class="fh5co-narrow-content animate-box">
