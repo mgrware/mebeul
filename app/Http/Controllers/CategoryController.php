@@ -12,6 +12,8 @@ use App\Http\Requests\CreateCategoryRequest;
 
 use Yajra\Datatables\Datatables;
 
+use Illuminate\Http\Response;
+
 class CategoryController extends Controller
 {
     public function index()
@@ -27,10 +29,25 @@ class CategoryController extends Controller
       public function store(CreateCategoryRequest $request)
     {
         $input = $request->all();
-        $category = Category::create($input);
-        return view('category.index');
+        $category = Category::create($input);        
+        return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil menambahkan Category '.$category->name]);
     }
 
+    public function disable($id)
+    {
+        $category = Category::find($id);
+        $category->is_active = false;
+        $category->save();
+        return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil me non-aktifkan category '.$category->name]);
+    }
+
+    public function enable($id)
+    {
+        $category = Category::find($id);
+        $category->is_active = true;
+        $category->save();
+        return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil meng-aktifkan category '.$category->name]);
+    }
 
     public function getDataCategory()
     {

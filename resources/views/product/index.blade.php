@@ -1,33 +1,121 @@
 @extends('layouts.appdashboard')
 @section('content')
-<div class="content-wrapper">
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="page-head-line">Products</h1>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-md-12">
-                  <!--   Kitchen Sink -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="form-group">
-                                <a href="{{url('admin/product/create')}}" class="btn btn-info"> <i class="fa fa-plus"></i> Create New Product</a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table id="product-table" class="table table-striped table-bordered table-hover">
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- End  Kitchen Sink -->
-                </div>
+    @include('shared.header')
+  
+    @include('shared.side-bar')
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Product
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Product</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title">Add new product
+              </h3>
+              <!-- tools box -->
+              <div class="pull-left box-tools">
+                <button type="button" class="btn btn-info btn-sm" id="create-product" data-widget="collapse" data-toggle="tooltip" title="Add new product">
+                  <i class="fa fa-plus"></i></button>
+              </div>
+              <!-- /. tools -->
             </div>
-    </div>
-</div>
+            <!-- /.box-header -->
+            <div class="box-body pad">
+               {!! Form::open(array('url'=>'admin/product','method'=>'POST', 'enctype'=>'multipart/form-data', 'files'=>true, 'class'=>'form-horizontal')) !!}
+              <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                <label for="title" class="col-md-1 control-label">Title</label>
+                  <div class="col-md-4">
+                  {!! Form::text('title', $value = null, $attributes = array('class'=>'form-control')) !!}
+                    @if ($errors->has('title'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('title') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+              </div>
+              <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                <label for="name" class="col-md-1 control-label">Description</label>
+                  <div class="col-md-8">
+                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control')) !!}
+                    @if ($errors->has('description'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('description') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+              </div>
+              <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
+                <label for="name" class="col-md-1 control-label">Category</label>
+                  <div class="col-md-4">
+                  {!! Form::select('category_id', $categories ,null, array('class' => 'form-control'))!!}
+                    @if ($errors->has('category_id'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('category_id') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+              </div>
+              <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                <label for="name" class="col-md-1 control-label">Images</label>
+                <div class="col-md-4">
+                   {!! Form::file('images[]', array('multiple'=>true)) !!}
+                  @if ($errors->has('image'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('image') }}</strong>
+                  </span>
+                  @endif
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-md-1 control-label"></label>
+                <div class="col-md-4">
+                  {!! Form::submit('Create', array('class'=>'btn btn-primary')) !!}
+                </div>
+              </div>
+                
+              {!! Form::close() !!}
+            </div>
+          </div>
+          <!-- /.box -->
+
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title">Product List
+              </h3>
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+                <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fa fa-minus"></i></button>
+              </div>
+              <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad">
+              <table id="product-table" class="table table-bordered table-striped">
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-->
+      </div>
+      <!-- ./row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
 @endsection
 
 @push('scripts')
@@ -84,7 +172,6 @@ $(function() {
         "name": "category.name",
         "width": "10%",
         "render": function (data, type, row, meta) {
-            console.log(row)
             return data   
         }
     }

@@ -26,16 +26,17 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
     public function index()
-    {
+    {   
+        $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
         $products = Product::paginate(5);;
-        return view('product.index', ['products' => $products]);
+        return view('product.index', compact('categories', 'products'));
     }
 
-    public function create()
-    {
-        $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
-        return view('product.create', compact('categories'));
-    }
+    // public function create()
+    // {
+    //     $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
+    //     return view('product.create', compact('categories'));
+    // }
 
     public function store(CreateProductRequest $request)
     {

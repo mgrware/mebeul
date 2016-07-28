@@ -14,131 +14,57 @@
     <!-- Styles -->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
    
-    <link href="/dashboard/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/dashboard/lte/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- FONT AWESOME ICONS  -->
     <link href="/dashboard/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
-    <link href="/dashboard/assets/css/style.css" rel="stylesheet" />
+    <link href="/dashboard/lte/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/dashboard/lte/dist/css/skins/_all-skins.min.css">
      <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/dataTables.bootstrap.css">
-    
+    <link rel="stylesheet" type="text/css" href="/dashboard/lte/dist/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/sweetalert/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 
 </head>
-<body id="app-layout">
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>Email: </strong>info@yourdomain.com
-                    &nbsp;&nbsp;
-                    <strong>Support: </strong>+90-897-678-44
-                </div>
+<body id="app-layout" class="hold-transition skin-blue sidebar-mini">
 
-            </div>
-        </div>
-    </header>
-    <!-- HEADER END-->
-    <div class="navbar navbar-inverse set-radius-zero">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">
-
-                    <img src="assets/img/logo.png" />
-                </a>
-
-            </div>
-
-            <div class="left-div">
-                <div class="user-settings-wrapper">
-                    <ul class="nav">
-
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-settings">
-                                <div class="media">
-                                    <a class="media-left" href="#">
-                                        <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Jhon Deo Alex </h4>
-                                        <h5>Developer & Designer</h5>
-
-                                    </div>
-                                </div>
-                                <hr />
-                                <h5><strong>Personal Bio : </strong></h5>
-                                Anim pariatur cliche reprehen derit.
-                                <hr />
-                                <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp; <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
-
-                            </div>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="wrapper">
+        @yield('content')
     </div>
-    <!-- LOGO HEADER END-->
-    <section class="menu-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="navbar-collapse collapse ">
-                        <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            @if (Auth::guest())
-                                <li><a href="{{ url('/login') }}">Login</a></li>
-                            @else
-                                <li><a {{{ (Request::is('admin') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/') }}">Dashboard</a></li>
-                                <li><a {{{ (Request::is('admin/product') ? 'class=menu-top-active' : '') }}} href="{{ url('/admin/product') }}">Product</a></li>
-                                <li><a {{{ (Request::is('admin/master') ? 'class=menu-top-active' : '') }}} href="{{url('/admin/master')}}">Master</a></li>
-                                <li><a {{{ (Request::is('admin/user') ? 'class=menu-top-active' : '') }}} href="{{url('/admin/user')}}">Users</a></li>
-                                <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                <li><a href="{{ url('/register') }}">Register</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            @endif
 
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-        
-    @yield('content')
-
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        &copy; 2015 YourCompany | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
-                    </div>
-
-                </div>
-            </div>
-        </footer>
- 
     <!-- JavaScripts -->
-    <script src="/dashboard/assets/js/jquery-1.11.1.js"></script>
+    <script src="/dashboard/lte/dist/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+    <script src="/dashboard/lte/dist/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/dashboard/lte/dist/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dashboard/lte/dist/js/app.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/dashboard/lte/dist/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="/dashboard/lte/dist/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/dashboard/lte/dist/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="/dashboard/lte/dist/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="/dashboard/lte/dist/plugins/chartjs/Chart.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dashboard/lte/dist/js/demo.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="/dashboard/assets/js/bootstrap.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="/dashboard/assets/js/dropzone.js"></script>
+    <script src="/dashboard/lte/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script charset="utf8" src="/dashboard/lte/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script charset="utf8" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script charset="utf8" src="/dashboard/sweetalert/sweetalert.min.js"></script>
     @stack('scripts')
+    <script src="/dashboard/lte/dist/js/pages/dashboard2.js"></script>
 </body>
 </html>
