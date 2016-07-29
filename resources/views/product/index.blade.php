@@ -34,60 +34,55 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
-               {!! Form::open(array('url'=>'admin/product','method'=>'POST', 'enctype'=>'multipart/form-data', 'files'=>true, 'class'=>'form-horizontal')) !!}
-              <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+               {!! Form::open(array('url'=>'admin/product','method'=>'POST', 'enctype'=>'multipart/form-data', 'files'=>true, 'class'=>'form-horizontal', 'id'=>'form-product')) !!}
+              <div class="form-group title">
                 <label for="title" class="col-md-1 control-label">Title</label>
                   <div class="col-md-4">
-                  {!! Form::text('title', $value = null, $attributes = array('class'=>'form-control')) !!}
-                    @if ($errors->has('title'))
+                  {!! Form::text('title', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
                       <span class="help-block">
-                        <strong>{{ $errors->first('title') }}</strong>
+                        <strong></strong>
                       </span>
-                    @endif
                   </div>
               </div>
-              <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+              <div class="form-group description">
                 <label for="name" class="col-md-1 control-label">Description</label>
                   <div class="col-md-8">
-                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control')) !!}
-                    @if ($errors->has('description'))
+                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
                       <span class="help-block">
-                        <strong>{{ $errors->first('description') }}</strong>
+                        <strong></strong>
                       </span>
-                    @endif
                   </div>
               </div>
-              <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
+              <div class="form-group category_id">
                 <label for="name" class="col-md-1 control-label">Category</label>
                   <div class="col-md-4">
-                  {!! Form::select('category_id', $categories ,null, array('class' => 'form-control'))!!}
-                    @if ($errors->has('category_id'))
+                  {!! Form::select('category_id', $categories ,null, array('class' => 'form-control input-form'))!!}
                       <span class="help-block">
-                        <strong>{{ $errors->first('category_id') }}</strong>
+                        <strong></strong>
                       </span>
-                    @endif
                   </div>
               </div>
-              <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+              <div class="form-group image">
                 <label for="name" class="col-md-1 control-label">Images</label>
                 <div class="col-md-4">
-                   {!! Form::file('images[]', array('multiple'=>true)) !!}
-                  @if ($errors->has('image'))
+                   {!! Form::file('images[]', array('multiple'=>true, 'class'=>'form-control input-form', 'id'=>'image')) !!}
                   <span class="help-block">
-                    <strong>{{ $errors->first('image') }}</strong>
+                    <strong></strong>
                   </span>
-                  @endif
                 </div>
               </div>
               <div class="form-group">
                 <label for="name" class="col-md-1 control-label"></label>
                 <div class="col-md-4">
-                  {!! Form::submit('Create', array('class'=>'btn btn-primary')) !!}
+                  {!! Form::button('Create', array('class'=>'btn btn-primary', 'id'=>'save-btn', 'onclick'=>'submitProduct()')) !!}
                 </div>
               </div>
                 
               {!! Form::close() !!}
             </div>
+              <div class="overlay hide">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
           </div>
           <!-- /.box -->
 
@@ -119,79 +114,13 @@
 @endsection
 
 @push('scripts')
+<script src="/dashboard/main/js/product.js"></script>
 <script>
-$(function() {
-    var colAction = {
-        "title": "Action",
-        "data": "id",
-        "width": "15%",
-        "render": function (data, type, row, meta) {
-            if(row.is_active== 1){
-                string_url = 'disable'
-                text_url = 'Disable'
-            }else{
-                string_url = 'enable'
-                text_url = 'Enable'
-            }
-            var link ='<a href="product/view/' + data + '"> View </a> || <a href="product/edit/' + data + '"> Edit </a> || <a class="is_active" href="/admin/product/'+ string_url+ '/' + data + '">'+text_url+'  </a>';
-
-
-            return link
-        }
-    }
-    var colDesc= {
-        "title": "Description",
-        "data": "description",
-        "width": "40%",
-        "render": function (data, type, row, meta) {
-            if(data.length > 250){
-            var data = jQuery.trim(data).substring(0, 250)
-            .split(" ").slice(0, -1).join(" ") + "...";    
-            }
-            return data   
-        }
-    }
-
-    var colIsActive= {
-        "title": "Status",
-        "data": "is_active",
-        "width": "10%",
-        "render": function (data, type, row, meta) {
-            if(data==1){
-                data = 'Active'
-            }else if(data==0){
-                data = 'Not Active'
-            }
-            return data   
-        }
-    }
-
-    var colCategories= {
-        "title": "Status",
-        "data": "category.name",
-        "name": "category.name",
-        "width": "10%",
-        "render": function (data, type, row, meta) {
-            return data   
-        }
-    }
-
-
-
-    $('#product-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{!! route('datatables.data') !!}',
-        columns: [
-            {title: 'No',  data: 'id', name: 'id', width: "5%" },
-            {title: 'title', data: 'title', name: 'title', width: "15%"},
-            colDesc,
-            colCategories,
-            colIsActive,
-            colAction,
-
-        ]
-    });
-});
+  $(document).ready(function(){
+    tableProd();
+    initialButton();
+    hideLoadingState();
+  })
+    
 </script>
 @endpush

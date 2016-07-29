@@ -27,6 +27,7 @@ class CreateProductRequest extends Request
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
+            'image_id'=> 'image'
         ];
     }
 }

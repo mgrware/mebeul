@@ -49,9 +49,10 @@ Route::group(['prefix' => 'admin'], function (){
 
     /* category route */
 
-    Route::resource('category', 'CategoryController', ['only' => ['index', 'create', 'store']]);
+    Route::resource('category', 'CategoryController', ['only' => ['index', 'create', 'store', 'update']]);
     Route::get('/category/enable/{id}', 'CategoryController@enable');
     Route::get('/category/disable/{id}', 'CategoryController@disable');
+    Route::get('/category/edit/{id}', 'CategoryController@edit');
 
     Route::controller('category', 'CategoryController', [
     'getDataCategory'  => 'catagories.data'

@@ -4,7 +4,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/assets/images/logo-rhcp.png" class="img-square" alt="User Image">
+          <img src="{{url('/assets/images/logo-rhcp.png')}}" class="img-square" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Rachipta Lestari</p>

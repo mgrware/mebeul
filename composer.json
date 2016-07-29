@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "~5.0",
         "yajra/laravel-datatables-oracle": "^6.16",
-        "landish/pagination": "~1.0"
+        "landish/pagination": "~1.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

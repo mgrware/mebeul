@@ -33,6 +33,15 @@ class CategoryController extends Controller
         return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil menambahkan Category '.$category->name]);
     }
 
+    public function update(CreateCategoryRequest $request)
+    {
+        $input = $request->all();
+        $category = Category::find($input['id']);
+        $category->name = $input['name'];
+        $category->save();
+        return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil memperbaharui '.$category->name]);
+    }
+
     public function disable($id)
     {
         $category = Category::find($id);
@@ -47,6 +56,12 @@ class CategoryController extends Controller
         $category->is_active = true;
         $category->save();
         return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil meng-aktifkan category '.$category->name]);
+    }
+
+    public function edit($id)
+    {   
+     $category = Category::find($id);
+     return response()->json(['data'=>$category]);   
     }
 
     public function getDataCategory()

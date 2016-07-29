@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-gray">
+<div class="">
 <div class="fh5co-narrow-content">
     <h4 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Our Project
     </h4>

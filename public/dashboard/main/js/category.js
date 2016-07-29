@@ -11,9 +11,8 @@ function initialButton(){
       prossesCategory('/admin/category/', 'post', 'store');
     })
 
-    $(".cb").off('click').on('click', function(){
-        var id = $(this).attr(id);
-        disableCategory(1)
+    $("#edit-btn").off('click').on('click', function(){
+      editCategory('/admin/category/store', 'put');
     })
     
 }
@@ -47,6 +46,16 @@ function tableCat() {
       }
   }
 
+  var colEdit= {
+      "title": "Edit",
+      "data": "id",
+      "width": "10%",
+      "render": function (data, type, row, meta) {
+        data = '<button class="btn btn-primary" onclick="showEditModal('+data+')">Edit</button>'
+        return data   
+      }
+  }
+
 
   $('#category-table').DataTable({
       processing: true,
@@ -57,6 +66,7 @@ function tableCat() {
           {title: 'N ame', data: 'name', name: 'name'},
           colIsActive,
           colIsAction,
+          colEdit,
       ]
   });
 
@@ -149,4 +159,57 @@ function promptCategory(id, name, action){
       } else {
         swal("Cancelled", "Your imaginary file is safe :)", "error");
       } });
+}
+
+function showEditModal(id){
+  jQuery.ajax({
+    beforeSend: function(request){
+    },
+    complete: function(request){
+  
+    },
+    error: function(request){
+    },
+    success:function(request){
+      data = request.data
+      $('#edit-category').modal('show')
+      $('#edit_id').val(data.id)
+      $('#edit_name').val(data.name)
+    },
+    dataType:'json',
+    type: 'get',
+    url: '/admin/category/edit/'+id
+  });
+}
+
+function editCategory(controller, method){
+      data = $("#form-edit-category").serialize();
+      tableCategory = $('#category-table').DataTable();
+      jQuery.ajax({
+        beforeSend: function(request){
+          showLoadingState();
+        },
+        complete: function(request){
+      
+        },
+        error: function(request){
+          var errors = request.responseJSON
+          $('.edit-name').addClass('has-error');
+          $('.edit-name span').text(errors.name);
+          hideLoadingState();
+        },
+        success:function(request){
+          status_text = request.initstatus
+          $('.edit-name').removeClass('has-error');
+          $('.input-form').val('')
+          $('.edit-name span').text('')
+          toastr.success(status_text)
+          tableCategory.ajax.reload();
+          hideLoadingState();
+          $('#edit-category').modal('hide')
+        },
+        dataType:'json',
+        type: method,
+        url: controller+'?'+data
+      });
 }

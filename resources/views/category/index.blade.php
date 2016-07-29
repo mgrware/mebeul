@@ -82,6 +82,42 @@
       <!-- ./row -->
     </section>
     <!-- /.content -->
+
+    <div class="example-modal">
+        <div class="modal" id="edit-category">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Category</h4>
+              </div>
+              <div class="modal-body">
+                {!! Form::open(array('url'=>'admin/category/update','method'=>'PUT', 'class'=>'form-horizontal', 'id'=>'form-edit-category')) !!}
+              <div class="form-group edit-name">
+                <label for="name" class="col-md-3 control-label">Category Name</label>
+                  <div class="col-md-6">
+                  {!! Form::text('id', $value = null, $attributes = array('id'=>'edit_id', 'class'=>'input-form form-control hide')) !!}
+                  {!! Form::text('name', $value = null, $attributes = array('id'=>'edit_name', 'class'=>'input-form form-control')) !!}
+                      <span class="help-block">
+                        <strong><label id="lb-name"></label></strong>
+                      </span>
+                  </div>
+              </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                {!! Form::button('Save Changes', array('class'=>'btn btn-primary', 'id'=>'edit-btn')) !!}
+              </div>
+              {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      </div>
   </div>
 @endsection
 

@@ -18,6 +18,8 @@ use Carbon\Carbon;
 
 use Yajra\Datatables\Datatables;
 
+use Illuminate\Http\Response;
+
 class ProductController extends Controller
 {
   
@@ -40,8 +42,8 @@ class ProductController extends Controller
 
     public function store(CreateProductRequest $request)
     {
+        $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
         $input = $request->all();
-
         $input['user_id'] = auth()->user()->id;
         $product = Product::create($input);
         $product_id = $product->id;
@@ -59,8 +61,13 @@ class ProductController extends Controller
             $uploadcount ++;
             } 
             //getting timestamp
-        $products = Product::all();
-        return view('product.index',['products' => $products]);
+        return view('product.index', compact('product', 'categories'));
+    }
+
+    public function update(CreateProductRequest $request)
+    {
+        $input = $request->all();
+        $product = Product::update($input);
     }
 
     public function anyData()
@@ -79,7 +86,10 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->is_active = false;
         $product->save();
-        return back();
+        return response()->json([
+            'data'=>$product,
+            'initstatus'=> 'Berhasil meng-aktifkan product '.$product->title
+            ]);
     }
 
     public function enable_product($id)
@@ -87,6 +97,9 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->is_active = true;
         $product->save();
-        return back();
+        return response()->json([
+            'data'=>$product,
+            'initstatus'=> 'Berhasil meng-nonaktifkan product '.$product->title
+            ]);
     }
 }
