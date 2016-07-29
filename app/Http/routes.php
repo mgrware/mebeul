@@ -41,8 +41,7 @@ Route::group(['prefix' => 'admin'], function (){
 
     /* user route */
 
-    Route::resource('user', 'UserController', ['only' => ['index', 'create']]);
-    Route::get('/user/new', 'UserController@new');
+    Route::resource('user', 'UserController', ['only' => ['index', 'store']]);
     Route::controller('user', 'UserController', [
     'getDataUser'  => 'user.data'
     ]);

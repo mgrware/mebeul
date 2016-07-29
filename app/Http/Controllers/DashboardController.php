@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
     public function __construct()
@@ -20,6 +22,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        if($user->status == "logged out"){
+            $user->status = 'logged in';
+            $user->save();
+        }
         return view('admin');
     }//
 }
