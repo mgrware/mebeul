@@ -7,173 +7,77 @@
 
     <title>Rachipta Lestari</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
-
     <!-- Styles -->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
    
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="/assets/css/animate.css">
-    <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="/assets/css/icomoon.css">
-    <!-- Bootstrap  -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
-    <!-- Theme style  -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Google Webfont -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400|Crimson+Text' rel='stylesheet' type='text/css'>
+    <!-- Themify Icons -->
+    {!! HTML::style('assets/css/themify-icons.css') !!}
+    {!! HTML::style('assets/css/bootstrap.css') !!}
+    {!! HTML::style('assets/css/owl.carousel.min.css') !!}
+    {!! HTML::style('assets/css/owl.theme.default.min.css') !!}
+    {!! HTML::style('assets/css/magnific-popup.css') !!}
+    {!! HTML::style('assets/css/superfish.css') !!}
+    {!! HTML::style('assets/css/easy-responsive-tabs.css') !!}
+    {!! HTML::style('assets/css/style.css') !!}
 
-    <link rel="stylesheet" href="/assets/prettyphoto/css/prettyPhoto.css">
-    <!-- Modernizr JS -->
-    <script src="/assets/js/modernizr-2.6.2.min.js"></script>
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body id="app-layout">
-<div class="site-wrapper">
-  <div class="site-wrapper-inner">
-    <div class="cover-container">
-      <div class="masthead clearfix">
-        <div class="inner">
-        </div>
-      </div>
-      <div class="inner cover">
-        
-      </div>
-    </div>
-</div>
-</div>
-<header id="fh5co-header" role="banner" class="border">
-            <nav class="navbar" id="fh5co-main-menu" role="navigation">
-                <div id="navbar" class="navbar navbar-fixed-top">
-                    <div id="header-container" class="container navbar-container">
-                        <ul class="nav navbar-nav">
-                            <li class="brand-label">
-                                <img src="/assets/images/logo-rhcp.png">
+        <!-- START #fh5co-hero -->
+    <header id="fh5co-header-section" role="header" class="" >
+                <div class="container">
+                    
+                    <!-- START #fh5co-logo -->
+                    <h3 id="fh5co-logo" class="pull-left"><img src="{{url('/assets/images/logo-rhcp.png')}}" class="img-square sm" width="30px" height="30px"> <a href="/">Rachipta Lestari</a></h3>
+                    
+                    <!-- START #fh5co-menu-wrap -->
+                    <nav id="fh5co-menu-wrap" role="navigation">
+                        <ul class="sf-menu" id="fh5co-primary-menu">
+                            <li class="active">
+                                <a href="{{url('/')}}">Home</a>
                             </li>
-                            <li class="brand-label">
-                                <a id="brand" class="navbar-brand" href="#">Rachipta Lestari</a>
+                            <li>
+                                <a href="#" class="fh5co-sub-ddown">Products</a>
+                                 <ul class="fh5co-sub-menu">
+                                    <li><a href="{{url('/products')}}">All Products</a></li>
+                                    <li>
+                                        <a href="#" class="fh5co-sub-ddown">Categories</a>
+                                        <ul class="fh5co-sub-menu">
+                                            @foreach($cat as $category)
+                                                <li><a href="{{url('/products/'.strToLower($category->name))}}">{{ucwords($category->name)}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                    <li><a href="left-sidebar.html">Left Sidebar</a></li>
+                                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
+                                    <li><a href="#">HTML5</a></li> 
+                                </ul>
                             </li>
+                            <li>
+                                <a href="elements.html">Abouts</a>
+                            </li>
+                            <li><a href="contact.html">Contacts</a></li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="fh5co-active"><a href="/">Home</a></li>
-                            <li><a href="portfolio.html">Products</a></li>
-                            <li><a href="portfolio.html">Portfolio</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
+                    </nav>
                 </div>
-            </nav>
-        </header>
-
-    <div id="fh5co-main">
+            </header>
          @yield('content')
-    </div>      
-   <!-- jQuery -->
-    <script src="/assets/js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="/assets/js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <!-- Owl carousel -->
-    <script src="/assets/js/owl.carousel.min.js"></script>
-    <!-- Stellar -->
-    <script src="/assets/js/jquery.stellar.min.js"></script>
-    <!-- Waypoints -->
-    <script src="/assets/js/jquery.waypoints.min.js"></script>
-    <!-- Counters -->
-    <script src="/assets/js/jquery.countTo.js"></script>
+          
+        
+        {!! HTML::script('assets/js/jquery-1.10.2.min.js') !!}
+        {!! HTML::script('assets/js/jquery.easing.1.3.js') !!}
+        {!! HTML::script('assets/js/jquery-waypoints.min.js') !!}
+        {!! HTML::script('assets/js/bootstrap.js') !!}
+        {!! HTML::script('assets/js/owl.carousel.min.js') !!}
+        {!! HTML::script('assets/js/jquery.magnific-popup.min.js') !!}
+        {!! HTML::script('assets/js/hoverIntent.js') !!}
+        {!! HTML::script('assets/js/superfish.js') !!}
+        {!! HTML::script('assets/js/easyResponsiveTabs.js') !!}
+        {!! HTML::script('assets/js/fastclick.js') !!}
+        {!! HTML::script('assets/js/main.js') !!}
 
-    <script src="/assets/prettyphoto/js/jquery.prettyPhoto.js"></script>
     
-    
-    <!-- MAIN JS -->
-    <script src="/assets/js/main.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            var myNavBar = {
 
-    flagAdd: true,
-
-    elements: [],
-
-    init: function (elements) {
-        this.elements = elements;
-    },
-
-    add : function() {
-        if(this.flagAdd) {
-            for(var i=0; i < this.elements.length; i++) {
-                document.getElementById(this.elements[i]).className += " fixed-theme";
-            }
-            this.flagAdd = false;
-        }
-    },
-
-    remove: function() {
-        for(var i=0; i < this.elements.length; i++) {
-            document.getElementById(this.elements[i]).className =
-                    document.getElementById(this.elements[i]).className.replace( /(?:^|\s)fixed-theme(?!\S)/g , '' );
-        }
-        this.flagAdd = true;
-    }
-
-};
-
-/**
- * Init the object. Pass the object the array of elements
- * that we want to change when the scroll goes down
- */
-myNavBar.init(  [
-    "fh5co-main-menu",
-    "header-container",
-    "brand"
-]);
-
-/**
- * Function that manage the direction
- * of the scroll
- */
-function offSetManager(){
-
-    var yOffset = 0;
-    var currYOffSet = window.pageYOffset;
-
-    if(yOffset < currYOffSet) {
-        myNavBar.add();
-    }
-    else if(currYOffSet == yOffset){
-        myNavBar.remove();
-    }
-
-}
-
-/**
- * bind to the document scroll detection
- */
-window.onscroll = function(e) {
-    offSetManager();
-}
-
-/**
- * We have to do a first detectation of offset because the page
- * could be load with scroll down set.
- */
-offSetManager();
-  $('#myCarousel').carousel({
-        pause: 'none'
-    })
-});
-    </script>
-    @stack('scripts')
 </body>
 </html>

@@ -14,6 +14,8 @@ use App\Category;
 
 use App\Image;
 
+use Validator;
+
 use Carbon\Carbon;
 
 use Yajra\Datatables\Datatables;
@@ -40,34 +42,41 @@ class ProductController extends Controller
     //     return view('product.create', compact('categories'));
     // }
 
+
     public function store(CreateProductRequest $request)
     {
         $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
-        $product = Product::create($input);
+        $input['slug'] = str_slug($input['title']);
+        $product = Product::create($input); 
         $product_id = $product->id;
         $files = $request->images; 
             // Making counting of uploaded images
         $file_count = count($files);
-            // start count how many uploaded
         $uploadcount = 0;
         foreach($files as $file) {
-            $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-            $name = $timestamp. '-' .$file->getClientOriginalName();
-            $file->move(public_path().'/images/', $name);
-            $image_params= ['name' => $name, 'filepath' => url('/images/'. $name), 'product_id' => $product_id];
-            $image = Image::create($image_params);
-            $uploadcount ++;
-            } 
+            $rules = array('image' => 'required');
+            $validator = Validator::make(array('image'=> $file), $rules);
+            if($validator->passes()){
+                $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+                $name = $timestamp. '-' .$file->getClientOriginalName();
+                $file->move(public_path().'/images/', $name);
+                $image_params= ['name' => $name, 'filepath' => url('/images/'. $name), 'product_id' => $product_id];
+                $image = Image::create($image_params);
+                $uploadcount ++;
+            }
+        } 
             //getting timestamp
         return view('product.index', compact('product', 'categories'));
     }
 
-    public function update(CreateProductRequest $request)
+    public function update(CreateProductRequest $request,$id)
     {
         $input = $request->all();
-        $product = Product::update($input);
+        $input['slug'] = str_slug($input['title']);
+        $product = Product::find($id);
+        $product->update($input);
     }
 
     public function anyData()

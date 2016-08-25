@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/product/view/{id}', 'HomeController@view');
+Route::get('/products/view/{title}', 'HomeController@view');
+Route::get('/products', 'HomeController@view_products');
+Route::get('/products/{category}', 'HomeController@products');
 Route::get('/galleries', 'HomeController@gallery');
 Route::get('/contact', 'HomeController@contact');
 

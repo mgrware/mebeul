@@ -26,7 +26,7 @@ function tableProd(){
           if(data==1){
               data = '<button class="btn btn-danger" onclick="promptProduct('+row.id+',\''+row.name+'\', \'disable\')">Disable</button>'
           }else if(data==0){
-               data = '<button class="btn btn-danger" onclick="promptProduct('+row.id+',\''+row.name+'\', \'enable\')">Enable</button>'
+               data = '<button class="btn btn-success" onclick="promptProduct('+row.id+',\''+row.name+'\', \'enable\')">Enable</button>'
           }
           return data   
       }
@@ -59,7 +59,7 @@ function tableProd(){
     }
 
     var colCategories= {
-        "title": "Status",
+        "title": "Category",
         "data": "category.name",
         "name": "category.name",
         "width": "10%",
@@ -215,4 +215,39 @@ function enabDisCategory(id, funct){
     type: 'get',
     url: '/admin/product/'+funct+'/'+id
   });
+}
+
+
+ // Menang Ngahayal by GilangBastard
+ // =================================================
+$(function(){lamunDitanya("Iraha Diwisuda?")})
+function lamunDitanya(obj){
+  arrDitanya = ["Iraha Kawin?","Iraha Diwisuda?", "Iraha Disunatan?",
+  "Iraha Mayar Hutang?"]
+  kisiKisi = irahaWae(new Date(2016, 08, 13), new Date(2050, 13, 08))
+  switch (obj){
+    case arrDitanya[0]:
+      console.log(kisiKisi)
+      break;
+    case arrDitanya[1]:
+      console.log(kisiKisi)
+      break;
+    case arrDitanya[2]:
+      console.log(kisiKisi)
+      break;
+    case arrDitanya[3]:
+      console.log(kisiKisi)
+      break;
+    default:
+        console.log("Teuing teu apal")
+  }
+}
+function irahaWae(start, end) {
+  var asd = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  var poe = ['Minggu','Senen','Salasa','Rebo','Kamis','Jumaah','Saptu'];
+  var bln = ['Januari','Pebuari','Maret','April','Mei','Juni','Juli', 'Agustus', 'September',
+   'November', 'Oktober', 'Desember']
+  var asoy = "Poe "+poe[asd.getDay()] +" tanggal "+asd.getDate() +
+  " Bulan "+bln[asd.getMonth()]+" Taun "+asd.getFullYear()+" Lamun jadi";
+  return asoy
 }

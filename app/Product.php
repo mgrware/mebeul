@@ -11,7 +11,11 @@ class Product extends Model
       'title',
       'description',
       'category_id',
-      'user_id'
+      'user_id',
+      'slug',
+      'color',
+      'size',
+      'material'
      ];
 
       public function user()
@@ -28,5 +32,7 @@ class Product extends Model
     {
       return $this->hasMany('App\Image');
     }
+
+
 
 }

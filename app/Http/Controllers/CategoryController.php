@@ -27,7 +27,8 @@ class CategoryController extends Controller
     }
 
       public function store(CreateCategoryRequest $request)
-    {
+    {   
+        
         $input = $request->all();
         $category = Category::create($input);        
         return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil menambahkan Category '.$category->name]);
@@ -37,8 +38,7 @@ class CategoryController extends Controller
     {
         $input = $request->all();
         $category = Category::find($input['id']);
-        $category->name = $input['name'];
-        $category->save();
+        $category->update($input);
         return response()->json(['data'=>$category, 'initstatus'=> 'Berhasil memperbaharui '.$category->name]);
     }
 

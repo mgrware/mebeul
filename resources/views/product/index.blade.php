@@ -35,41 +35,61 @@
             <!-- /.box-header -->
             <div class="box-body pad">
                {!! Form::open(array('url'=>'admin/product','method'=>'POST', 'enctype'=>'multipart/form-data', 'files'=>true, 'class'=>'form-horizontal', 'id'=>'form-product')) !!}
-              <div class="form-group title">
+              <div class="form-group">
                 <label for="title" class="col-md-1 control-label">Title</label>
-                  <div class="col-md-4">
+                  <div class="col-md-4 title">
                   {!! Form::text('title', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
                       <span class="help-block">
                         <strong></strong>
                       </span>
                   </div>
-              </div>
-              <div class="form-group description">
-                <label for="name" class="col-md-1 control-label">Description</label>
-                  <div class="col-md-8">
-                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
-                      <span class="help-block">
-                        <strong></strong>
-                      </span>
-                  </div>
-              </div>
-              <div class="form-group category_id">
-                <label for="name" class="col-md-1 control-label">Category</label>
-                  <div class="col-md-4">
-                  {!! Form::select('category_id', $categories ,null, array('class' => 'form-control input-form'))!!}
-                      <span class="help-block">
-                        <strong></strong>
-                      </span>
-                  </div>
-              </div>
-              <div class="form-group image">
-                <label for="name" class="col-md-1 control-label">Images</label>
+                <label for="title" class="col-md-1 control-label">Color</label>
                 <div class="col-md-4">
+                  {!! Form::text('color', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-md-1 control-label">Category</label>
+                <div class="col-md-4 category_id">
+                {!! Form::select('category_id', $categories ,null, array('class' => 'form-control input-form'))!!}
+                    <span class="help-block">
+                      <strong></strong>
+                    </span>
+                </div>
+                
+                <label for="title" class="col-md-1 control-label">Materials</label>
+                  <div class="col-md-4 materials">
+                  {!! Form::text('material', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-md-1 control-label">Images</label>
+                <div class="col-md-4 image">
                    {!! Form::file('images[]', array('multiple'=>true, 'class'=>'form-control input-form', 'id'=>'image')) !!}
                   <span class="help-block">
                     <strong></strong>
                   </span>
                 </div>
+                <label for="title" class="col-md-1 control-label">Size</label>
+                  <div class="col-md-4 materials">
+                  {!! Form::text('size', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
+                  </div>
+              </div>
+
+              <div class="form-group description">
+                <label for="name" class="col-md-1 control-label">Description</label>
+                  <div class="col-md-9">
+                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control input-form')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
               </div>
               <div class="form-group">
                 <label for="name" class="col-md-1 control-label"></label>
@@ -77,7 +97,6 @@
                   {!! Form::button('Create', array('class'=>'btn btn-primary', 'id'=>'save-btn', 'onclick'=>'submitProduct()')) !!}
                 </div>
               </div>
-                
               {!! Form::close() !!}
             </div>
               <div class="overlay hide">

@@ -40,7 +40,7 @@ function tableCat() {
           if(data==1){
               data = '<button class="btn btn-danger" onclick="promptCategory('+row.id+',\''+row.name+'\', \'disable\')">Disable</button>'
           }else if(data==0){
-               data = '<button class="btn btn-danger" onclick="promptCategory('+row.id+',\''+row.name+'\', \'enable\')">Enable</button>'
+               data = '<button class="btn btn-success" onclick="promptCategory('+row.id+',\''+row.name+'\', \'enable\')">Enable</button>'
           }
           return data   
       }
@@ -86,8 +86,9 @@ function prossesCategory(controller, method, funct){
         },
         error: function(request){
           var errors = request.responseJSON;
-          $('.name').addClass('has-error');
-          $('.name span').text(errors.name)
+          console.log(request)
+          // $('.name').addClass('has-error');
+          // $('.name span').text(errors.name)
           hideLoadingState();
         },
         success:function(request){
