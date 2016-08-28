@@ -21,6 +21,7 @@
     {!! HTML::style('/dashboard/lte/dist/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')!!}
     {!! HTML::style('dashboard/lte/dist/css/skins/_all-skins.min.css')!!}
     {!! HTML::style('dashboard/dropzone/dropzone.css')!!}
+    {!! HTML::style('dashboard/main/css/main.css')!!}
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body id="app-layout" class="hold-transition skin-red sidebar-mini">

@@ -71,12 +71,33 @@ class ProductController extends Controller
         return view('product.index', compact('product', 'categories'));
     }
 
-    public function update(CreateProductRequest $request,$id)
+    public function update(Request $request)
     {
+        $categories = [''=>'Please select'] + Category::where('is_active', true)->orderBy('name')->pluck('name', 'id')->all();
         $input = $request->all();
+        
         $input['slug'] = str_slug($input['title']);
-        $product = Product::find($id);
+        $product = Product::find($input['id']);
         $product->update($input);
+        $product_id = $input['id'];
+        $files = $request->images; 
+        $file_count = count($files);
+        $uploadcount = 0;
+        if(isset($files)){
+            foreach($files as $file) {
+                $rules = array('image' => 'required');
+                $validator = Validator::make(array('image'=> $file), $rules);
+                if($validator->passes()){
+                    $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+                    $name = $timestamp. '-' .$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);
+                    $image_params= ['name' => $name, 'filepath' => url('/images/'. $name), 'product_id' => $product_id];
+                    $image = Image::create($image_params);
+                    $uploadcount ++;
+                }
+            }
+        }
+        return view('product.index', compact('product', 'categories'));
     }
 
     public function anyData()
@@ -110,5 +131,11 @@ class ProductController extends Controller
             'data'=>$product,
             'initstatus'=> 'Berhasil meng-nonaktifkan product '.$product->title
             ]);
+    }
+
+    public function edit($id)
+    {   
+     $product = Product::find($id);
+     return response()->json(['data'=>$product, 'images'=> $product->images]);   
     }
 }

@@ -130,6 +130,95 @@
     <!-- /.content -->
   </div>
 
+  <div class="example-modal">
+        <div class="modal" id="edit-product">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Product</h4>
+              </div>
+              <div class="modal-body">
+                {!! Form::open(array('url'=>'admin/product/','method'=>'PUT','enctype'=>'multipart/form-data', 'files'=>true, 'class'=>'form-horizontal', 'id'=>'form-edit-product')) !!}
+              <div class="form-group">
+                <label for="title" class="col-md-2 control-label">Title</label>
+                  <div class="col-md-4 title">
+                  {!! Form::hidden('id', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-id')) !!}
+                  {!! Form::text('title', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-title')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+                <label for="title" class="col-md-2 control-label">Color</label>
+                <div class="col-md-4">
+                  {!! Form::text('color', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-color')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-md-2 control-label">Category</label>
+                <div class="col-md-4 category_id">
+                {!! Form::select('category_id', $categories ,null, array('class' => 'form-control input-form', 'id' => 'form-category'))!!}
+                    <span class="help-block">
+                      <strong></strong>
+                    </span>
+                </div>
+                
+                <label for="title" class="col-md-2 control-label">Materials</label>
+                  <div class="col-md-4 materials">
+                  {!! Form::text('material', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-material')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-md-2 control-label">Images</label>
+                <div class="col-md-4 image">
+                   {!! Form::file('images[]', array('multiple'=>true, 'class'=>'form-control input-form', 'id'=>'image')) !!}
+                  <span class="help-block">
+                    <strong></strong>
+                  </span>
+                </div>
+                <label for="title" class="col-md-2 control-label">Size</label>
+                  <div class="col-md-4 materials">
+                  {!! Form::text('size', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-size')) !!}
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <div class="loop-image">
+                </div>
+              </div>
+
+              <div class="form-group description">
+                <label for="name" class="col-md-2 control-label">Description</label>
+                  <div class="col-md-10">
+                  {!! Form::textarea('description', $value = null, $attributes = array('class'=>'form-control input-form', 'id' => 'form-description')) !!}
+                      <span class="help-block">
+                        <strong></strong>
+                      </span>
+                  </div>
+              </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                {!! Form::button('Save Changes', array('class'=>'btn btn-primary', 'onclick'=>'$("#form-edit-product").submit();')) !!}
+              </div>
+              {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      </div>
+  </div>
+
 @endsection
 
 @push('scripts')

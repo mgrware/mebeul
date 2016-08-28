@@ -68,6 +68,16 @@ function tableProd(){
         }
     }
 
+    var colEdit= {
+      "title": "Edit",
+      "data": "id",
+      "width": "10%",
+      "render": function (data, type, row, meta) {
+        data = '<button class="btn btn-primary" onclick="showEditProduct('+data+')">Edit</button>'
+        return data   
+      }
+  }
+
 
 
     $('#product-table').DataTable({
@@ -81,6 +91,7 @@ function tableProd(){
             colCategories,
             colIsActive,
             colAction,
+            colEdit,
 
         ]
     });
@@ -218,36 +229,103 @@ function enabDisCategory(id, funct){
 }
 
 
- // Menang Ngahayal by GilangBastard
- // =================================================
-$(function(){lamunDitanya("Iraha Diwisuda?")})
-function lamunDitanya(obj){
-  arrDitanya = ["Iraha Kawin?","Iraha Diwisuda?", "Iraha Disunatan?",
-  "Iraha Mayar Hutang?"]
-  kisiKisi = irahaWae(new Date(2016, 08, 13), new Date(2050, 13, 08))
-  switch (obj){
-    case arrDitanya[0]:
-      console.log(kisiKisi)
-      break;
-    case arrDitanya[1]:
-      console.log(kisiKisi)
-      break;
-    case arrDitanya[2]:
-      console.log(kisiKisi)
-      break;
-    case arrDitanya[3]:
-      console.log(kisiKisi)
-      break;
-    default:
-        console.log("Teuing teu apal")
-  }
+//  // Menang Ngahayal by GilangBastard
+//  // =================================================
+// $(function(){lamunDitanya("Iraha Diwisuda?")})
+// function lamunDitanya(obj){
+//   arrDitanya = ["Iraha Kawin?","Iraha Diwisuda?", "Iraha Disunatan?",
+//   "Iraha Mayar Hutang?"]
+//   kisiKisi = irahaWae(new Date(2016, 08, 13), new Date(2050, 13, 08))
+//   switch (obj){
+//     case arrDitanya[0]:
+//       console.log(kisiKisi)
+//       break;
+//     case arrDitanya[1]:
+//       console.log(kisiKisi)
+//       break;
+//     case arrDitanya[2]:
+//       console.log(kisiKisi)
+//       break;
+//     case arrDitanya[3]:
+//       console.log(kisiKisi)
+//       break;
+//     default:
+//         console.log("Teuing teu apal")
+//   }
+// }
+// function irahaWae(start, end) {
+//   var asd = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+//   var poe = ['Minggu','Senen','Salasa','Rebo','Kamis','Jumaah','Saptu'];
+//   var bln = ['Januari','Pebuari','Maret','April','Mei','Juni','Juli', 'Agustus', 'September',
+//    'November', 'Oktober', 'Desember']
+//   var asoy = "Poe "+poe[asd.getDay()] +" tanggal "+asd.getDate() +
+//   " Bulan "+bln[asd.getMonth()]+" Taun "+asd.getFullYear()+" Lamun jadi";
+//   return asoy
+// }
+
+
+
+function editProduct(controller, method){
+      data = $("#form-edit-category").serialize();
+      tableCategory = $('#category-table').DataTable();
+      jQuery.ajax({
+        beforeSend: function(request){
+          showLoadingState();
+        },
+        complete: function(request){
+      
+        },
+        error: function(request){
+          var errors = request.responseJSON
+          $('.edit-name').addClass('has-error');
+          $('.edit-name span').text(errors.name);
+          hideLoadingState();
+        },
+        success:function(request){
+          status_text = request.initstatus
+          $('.edit-name').removeClass('has-error');
+          $('.input-form').val('')
+          $('.edit-name span').text('')
+          toastr.success(status_text)
+          tableCategory.ajax.reload();
+          hideLoadingState();
+          $('#edit-category').modal('hide')
+        },
+        dataType:'json',
+        type: method,
+        url: controller+'?'+data
+      });
 }
-function irahaWae(start, end) {
-  var asd = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  var poe = ['Minggu','Senen','Salasa','Rebo','Kamis','Jumaah','Saptu'];
-  var bln = ['Januari','Pebuari','Maret','April','Mei','Juni','Juli', 'Agustus', 'September',
-   'November', 'Oktober', 'Desember']
-  var asoy = "Poe "+poe[asd.getDay()] +" tanggal "+asd.getDate() +
-  " Bulan "+bln[asd.getMonth()]+" Taun "+asd.getFullYear()+" Lamun jadi";
-  return asoy
+
+function showEditProduct(id){
+  jQuery.ajax({
+    beforeSend: function(request){
+      $('.loop-image').html('')
+    },
+    complete: function(request){
+  
+    },
+    error: function(request){
+    },
+    success:function(request){
+      data = request.data
+      images = request.images
+      $('#edit-product').modal('show')
+      $('#form-id').val(data.id)
+      $('#form-title').val(data.title)
+      $('#form-material').val(data.material)
+      $('#form-color').val(data.color)
+      $('#form-size').val(data.size)
+      $('#form-category').val(data.category_id)
+      $('#form-description').val(data.description)
+      $.each(images, function(i, val){
+        html = "<div class='col-md-2'><img class='product-image' src='"+val.filepath+"'></div>"
+        $('.loop-image').append(html)
+      })
+    },
+    dataType:'json',
+    type: 'get',
+    url: '/admin/product/edit/'+id
+  });
 }
+
